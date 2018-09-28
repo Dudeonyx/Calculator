@@ -17,4 +17,5 @@ function operator(...args) {
   if (args[0] === '-') return substract(...newArgs);
   if (args[0] === '×' || args[0] === '*') return multiply(...newArgs);
   if (args[0] === '÷' || args[0] === '/') return divide(...newArgs);
+  return `OOPS!!!, ${args[0]} is not a valid operator`;
 }
