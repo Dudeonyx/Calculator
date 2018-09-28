@@ -3,39 +3,62 @@ body {
   flex-flow: row wrap;
   justify-content: center;
   align-content: center;
+  margin: 0;
+  padding: 0;
 }
 .calculator {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   height: 400px;
   width: 300px;
   border: 5px groove rgb(85, 85, 85);
   background-color: rgb(206, 206, 206);
 }
+
 .display {
   display: flex;
   flex-flow: row wrap;
-  flex: 1 1 100%;
+  flex: 1 1 20%;
   max-height: 20%;
-  margin: 0;
   justify-content: center;
   align-items: center;
-
 }
+
 .main-display {
   flex: 0 1 70%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   background-color: white;
+  padding: 0 5% 0 0;
   /* display: inline-block; */
   /* width: 70%; */
   height: 80%;
+  font-size: 2em;
+  font-family: monospace, 'Courier New', Courier;
   /* margin-right: auto; */
 }
 .sub-display {
   flex: 0 1 20%;
   height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: white;
   /* display: inline-block; */
   text-align: center;
-  vertical-align: bottom;
   /* width: 20%; */
 }
+ .buttons {
+   flex: 1 1 77%;
+   border: 1px solid black;
+   display: flex;
+   flex-flow: row wrap;
+   justify-content: space-between;
+ }
+ button {
+   flex: 1 1 22%;
+   margin: 3px;
+   font-weight: bold;
+   font-size: 2em;
+ }
