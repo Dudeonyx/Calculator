@@ -12,10 +12,7 @@ function divide(...args) {
 }
 
 function operator(...args) {
-  const newArgs = args.slice(1).map((x) => {
-    const y = x.replace(/~/, '-'); // replace '~' used for inversion with actual minus '-' sign
-    return Number(y);
-  });
+  const newArgs = args.slice(1).map(Number);
   if (args[0] === '+') return add(...newArgs);
   if (args[0] === '-') return substract(...newArgs);
   if (args[0] === '×' || args[0] === '*') return multiply(...newArgs);
@@ -26,13 +23,14 @@ const mathDisplay = document.querySelector('.main-display p');
 function evaluateMathString() {
   const inputmathString = mathDisplay.textContent;
   let mathString = inputmathString;
-  const regex = /~?\d+[.]?\d*[-/*+]~?\d+[.]?\d*/i;
+  const regex = /-?\d+[.]?\d*[-/*+]-?\d+[.]?\d*/i;
   // the regex (?:(?:[/*-+]-)|^(?: ?-))? checks for a negating sign '-' by matching a '-' sign
   // preceded by a blank space/operator symbol(/,*,-,+) or at the beginning of the math string.
-  const regexAddition = /(~?\d+[.]?\d*)(\+)(~?\d+[.]?\d*)/i;
-  const regexSubstraction = /(~?\d+[.]?\d*)(-)(~?\d+[.]?\d*)/i;
-  const regexMultplication = /(~?\d+[.]?\d*)(\*)(~?\d+[.]?\d*)/i;
-  const regexDivision = /(~?\d+[.]?\d*)(\/)(~?\d+[.]?\d*)/i;
+  const regexAddition = /(-?\d+[.]?\d*)(\+)(-?\d+[.]?\d*)/i;
+  const regexAdditionAndSubstraction = /(-?\d+[.]?\d*)(\+|-)(-?\d+[.]?\d*)/i;
+  const regexSubstraction = /(-?\d+[.]?\d*)(-)(-?\d+[.]?\d*)/i;
+  const regexMultplication = /(-?\d+[.]?\d*)(\*)(-?\d+[.]?\d*)/i;
+  const regexDivision = /(-?\d+[.]?\d*)(\/)(-?\d+[.]?\d*)/i;
   // let result = regex.exec(mathString);
   while (regex.test(mathString)) {
     evaluatePEDMAS();
@@ -50,16 +48,18 @@ function evaluateMathString() {
       mathString = mathString.replace(regexDivision, sendToOperator);
     } else if (regexMultplication.test(mathString)) {
       mathString = mathString.replace(regexMultplication, sendToOperator);
-    } else if (regexAddition.test(mathString)) {
-      mathString = mathString.replace(regexAddition, sendToOperator);
-    } else if (regexSubstraction.test(mathString)) {
-      mathString = mathString.replace(regexSubstraction, sendToOperator);
+    } else if (regexAdditionAndSubstraction.test(mathString)) {
+      mathString = mathString.replace(regexAdditionAndSubstraction, sendToOperator);
+    // } else if (regexSubstraction.test(mathString)) {
+    //   mathString = mathString.replace(regexSubstraction, sendToOperator);
     }
   }
 }
 function addToMathString(x) {
-  if (mathDisplay.textContent === '' && /[-./*+]/.test(x)) return;
-  if (/[-~*/+]$/i.test(mathDisplay.textContent) && /[-~./*+]/.test(x)) return;
+  if (mathDisplay.textContent === '' && /[./*+]/.test(x)) return;
+  if (/[-*/+]$/i.test(mathDisplay.textContent) && /[./*+]/.test(x)) return;
+  if (mathDisplay.textContent === '-' && /[-./*+]/.test(x)) return;
+  if (/--$/i.test(mathDisplay.textContent) && /[-./*+]/.test(x)) return;
   if (/[.]$/i.test(mathDisplay.textContent) && /[.]/.test(x)) return;
   if (/(?:\d[.]\d*)$/i.test(mathDisplay.textContent) && /[.]/.test(x)) return;
   mathDisplay.textContent += x;
