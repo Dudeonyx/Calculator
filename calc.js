@@ -25,6 +25,7 @@ function evaluateMathString() {
   const inputmathString = mathDisplay.textContent;
   let mathString = inputmathString;
   const regex = /-?\d+[.]?\d*[-/*+]-?\d+[.]?\d*/i;
+  if (!regex.test(mathString)) return;
   // the regex (?:(?:[/*-+]-)|^(?: ?-))? checks for a negating sign '-' by matching a '-' sign
   // preceded by a blank space/operator symbol(/,*,-,+) or at the beginning of the math string.
   const regexAddition = /(-?\d+[.]?\d*)(\+)(-?\d+[.]?\d*)/i;
@@ -35,7 +36,7 @@ function evaluateMathString() {
   // let result = regex.exec(mathString);
 
   function sendToOperator(match, p1, p2, p3) {
-    return `${Math.round(operator(p2, p1, p3) * 100000) / 100000}`;
+    return `${Math.round(operator(p2, p1, p3) * 10000000000) / 10000000000}`;
   }
   function evaluatePEDMAS() {
     if (regexDivision.test(mathString)) {
@@ -45,9 +46,9 @@ function evaluateMathString() {
     } else if (regexAdditionAndSubstraction.test(mathString)) {
       mathString = mathString.replace(regexAdditionAndSubstraction, sendToOperator);
     }
-      //  else if (regexSubstraction.test(mathString)) {
-      //   mathString = mathString.replace(regexSubstraction, sendToOperator);
-      // }
+    //  else if (regexSubstraction.test(mathString)) {
+    //   mathString = mathString.replace(regexSubstraction, sendToOperator);
+    // }
   }
   while (regex.test(mathString)) {
     evaluatePEDMAS();
@@ -58,6 +59,7 @@ function evaluateMathString() {
 
   return result;
 }
+
 function addToMathString(x) {
   if (answerFlag === 1) {
     answerFlag = 0;
@@ -88,7 +90,7 @@ function backspace() {
 }
 window.addEventListener('keyup', (event) => {
   // console.dir(event);
-  if (/[-0-9/*+]/i.test(event.key)) addToMathString(event.key);
+  if (/[-0-9./*+]/i.test(event.key)) addToMathString(event.key);
   if (event.key === 'Enter' || event.key === '=') evaluateMathString();
   if (event.key === 'Backspace') backspace();
 });

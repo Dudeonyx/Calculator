@@ -25,14 +25,14 @@ body {
 }
 
 .main-display {
-  flex: 0 1 70%;
+  flex: 0 1 75%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   background-color: white;
   flex-flow: row;
   /* display: inline-block; */
-  /* width: 70%; */
+  max-width: 75%;
   height: 80%;
   font-size: 1.7em;
   /* margin-right: auto; */
@@ -42,13 +42,13 @@ body {
   /* flex: 1 1 30px; */
   font-family: monospace, 'Courier New', Courier;
   max-height: 90%;
-  max-width: 80%;
+  max-width: 90%;
   overflow: auto;
   margin: 0;
 
 }
 .sub-display {
-  flex: 0 1 20%;
+  flex: 0 1 15%;
   height: 80%;
   display: flex;
   align-items: center;
