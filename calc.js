@@ -90,7 +90,7 @@ function backspace() {
 }
 window.addEventListener('keyup', (event) => {
   // console.dir(event);
-  if (/[-0-9./*+]/i.test(event.key)) addToMathString(event.key);
+  if (/[-0-9./*+]/i.test(event.key) && !/[a-z]/i.test(event.key)) addToMathString(event.key);
   if (event.key === 'Enter' || event.key === '=' || event.key === 'NumpadEnter') evaluateMathString();
   if (event.key === 'Backspace') backspace();
 });
