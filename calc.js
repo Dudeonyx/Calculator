@@ -89,8 +89,8 @@ function backspace() {
   mathDisplay.textContent = mathDisplay.textContent.slice(0, -1);
 }
 window.addEventListener('keyup', (event) => {
-  // console.dir(event);
+  console.dir(event);
   if (/[-0-9./*+]/i.test(event.key)) addToMathString(event.key);
-  if (event.key === 'Enter' || event.key === '=') evaluateMathString();
+  if (event.key === 'Enter' || event.key === '=' || event.key === 'NumpadEnter') evaluateMathString();
   if (event.key === 'Backspace') backspace();
 });
