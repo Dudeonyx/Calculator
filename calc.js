@@ -20,6 +20,7 @@ function operator(...args) {
   return `OOPS!!!, ${args[0]} is not a valid operator`;
 }
 const mathDisplay = document.querySelector('.main-display p');
+let answerFlag = 0;
 function evaluateMathString() {
   const inputmathString = mathDisplay.textContent;
   let mathString = inputmathString;
@@ -37,11 +38,12 @@ function evaluateMathString() {
   }
   const result = mathString;
   mathDisplay.textContent = result;
+  answerFlag = 1;
 
   return result;
 
   function sendToOperator(match, p1, p2, p3) {
-    return `${operator(p2, p1, p3)}`;
+    return `${Math.round(operator(p2, p1, p3) * 100000) / 100000}`;
   }
   function evaluatePEDMAS() {
     if (regexDivision.test(mathString)) {
@@ -56,6 +58,10 @@ function evaluateMathString() {
   }
 }
 function addToMathString(x) {
+  if (answerFlag === 1) {
+    answerFlag = 0;
+    mathDisplay.textContent = '0';
+  }
   if (mathDisplay.textContent === '' && /[./*+]/.test(x)) return;
   if (/[-*/+]$/i.test(mathDisplay.textContent) && /[./*+]/.test(x)) return;
   if (mathDisplay.textContent === '-' && /[-./*+]/.test(x)) return;
