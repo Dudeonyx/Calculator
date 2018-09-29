@@ -62,10 +62,11 @@ function addToMathString(x) {
   if (/--$/i.test(mathDisplay.textContent) && /[-./*+]/.test(x)) return;
   if (/[.]$/i.test(mathDisplay.textContent) && /[.]/.test(x)) return;
   if (/(?:\d[.]\d*)$/i.test(mathDisplay.textContent) && /[.]/.test(x)) return;
+  if (mathDisplay.textContent === '0' && /[0-9]/.test(x)) mathDisplay.textContent = '';
   mathDisplay.textContent += x;
 }
 function clearMathDisplay() {
-  mathDisplay.textContent = '';
+  mathDisplay.textContent = '0';
 }
 function backspace() {
   mathDisplay.textContent = mathDisplay.textContent.slice(0, -1);
