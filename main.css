@@ -9,8 +9,9 @@ body {
 .calculator {
   display: flex;
   flex-flow: column wrap;
-  height: 400px;
-  width: 300px;
+  flex: 1 1;
+  min-height: 80vw;
+  max-width: 70vw;
   border: 5px groove rgb(85, 85, 85);
   background-color: rgb(206, 206, 206);
 }
@@ -34,7 +35,7 @@ body {
   /* display: inline-block; */
   max-width: 75%;
   height: 80%;
-  font-size: 1.7em;
+  font-size: 2.8em;
   /* margin-right: auto; */
   padding: 0 2px 0 0;
 }
