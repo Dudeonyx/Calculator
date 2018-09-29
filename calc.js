@@ -72,8 +72,16 @@ function addToMathString(x) {
   mathDisplay.textContent += x;
 }
 function clearMathDisplay() {
-  mathDisplay.textContent = '0';
+  if (answerFlag === 1) {
+    answerFlag = 0;
+    mathDisplay.textContent = '0';
+  } else mathDisplay.textContent = '0';
 }
 function backspace() {
+  if (answerFlag === 1) {
+    answerFlag = 0;
+    mathDisplay.textContent = '0';
+    return;
+  }
   mathDisplay.textContent = mathDisplay.textContent.slice(0, -1);
 }
