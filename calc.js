@@ -33,14 +33,6 @@ function evaluateMathString() {
   const regexMultplication = /(-?\d+[.]?\d*)(\*)(-?\d+[.]?\d*)/i;
   const regexDivision = /(-?\d+[.]?\d*)(\/)(-?\d+[.]?\d*)/i;
   // let result = regex.exec(mathString);
-  while (regex.test(mathString)) {
-    evaluatePEDMAS();
-  }
-  const result = mathString;
-  mathDisplay.textContent = result;
-  answerFlag = 1;
-
-  return result;
 
   function sendToOperator(match, p1, p2, p3) {
     return `${Math.round(operator(p2, p1, p3) * 100000) / 100000}`;
@@ -52,10 +44,19 @@ function evaluateMathString() {
       mathString = mathString.replace(regexMultplication, sendToOperator);
     } else if (regexAdditionAndSubstraction.test(mathString)) {
       mathString = mathString.replace(regexAdditionAndSubstraction, sendToOperator);
-    // } else if (regexSubstraction.test(mathString)) {
-    //   mathString = mathString.replace(regexSubstraction, sendToOperator);
     }
+      //  else if (regexSubstraction.test(mathString)) {
+      //   mathString = mathString.replace(regexSubstraction, sendToOperator);
+      // }
   }
+  while (regex.test(mathString)) {
+    evaluatePEDMAS();
+  }
+  const result = mathString;
+  mathDisplay.textContent = result;
+  answerFlag = 1;
+
+  return result;
 }
 function addToMathString(x) {
   if (answerFlag === 1) {
@@ -85,3 +86,9 @@ function backspace() {
   }
   mathDisplay.textContent = mathDisplay.textContent.slice(0, -1);
 }
+window.addEventListener('keyup', (event) => {
+  // console.dir(event);
+  if (/[-0-9/*+]/i.test(event.key)) addToMathString(event.key);
+  if (event.key === 'Enter' || event.key === '=') evaluateMathString();
+  if (event.key === 'Backspace') backspace();
+});
