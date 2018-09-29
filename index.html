@@ -7,14 +7,13 @@
     <title>Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="calc.js"></script>
 </head>
 
 <body>
     <div class="calculator">
         <div class="display">
             <div class="sub-display"><p>init</p></div>
-            <div class="main-display"><p>2-6</p></div>
+            <div class="main-display"><p>-10*-45/5+6-1</p></div>
         </div>
         <div class="buttons">
             <button>CE</button>
@@ -36,10 +35,11 @@
             <button>±</button>
             <button>0</button>
             <button>.</button>
-            <button>=</button>
+            <button onclick="evaluateMathString()">=</button>
         </div>
     </div>
-
+    
+    <script src="calc.js"></script>
 </body>
 
 </html>
